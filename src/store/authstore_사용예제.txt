@@ -1,0 +1,91 @@
+import React, { useState } from 'react';
+import { useAuthStore } from '../stores/authStore';
+import { UserInfoType } from '../types/global_types'; // 타입 경로는 필요에 따라 수정하세요.
+
+const DataExampleComponent: React.FC = () => {
+  // 1. 상태 읽기 (READ)
+  // useAuthStore 훅을 통해 현재 상태에서 userInfo를 가져옵니다.
+  // 이 방법은 상태가 바뀔 때만 리렌더링됩니다.
+  const userInfo = useAuthStore((state) => state.userInfo);
+  
+  // 2. 액션 함수 가져오기 (SET을 위한 함수)
+  const { login, logout } = useAuthStore((state) => ({
+    login: state.login,
+    logout: state.logout,
+  }));
+
+  const isLoggedIn = userInfo !== null;
+
+  // 더미 데이터
+  const dummyUser: UserInfoType = {
+    id: 99,
+    username: 'zustand_tester',
+    createdDt: new Date().toISOString(),
+    updatedDt: new Date().toISOString(),
+    realName: 'Zustand 사용자',
+    profileUrl: 'http://placeholder.com/user.png',
+    uidVarchar: 'test-uid-112233',
+    emailVarchar: 'test@example.com',
+    displayName: 'Test User',
+    providerId: 'manual',
+    metadata: '{"source":"example"}',
+    token: 'test-auth-token-12345',
+  };
+
+  const handleSetData = () => {
+    // 3. 데이터 설정 (SET) - login 액션 호출
+    login(dummyUser, dummyUser.token);
+    console.log('데이터 저장(Set) 완료.');
+  };
+
+  const handleClearData = () => {
+    // 4. 데이터 제거 (CLEAR / Set to Null) - logout 액션 호출
+    logout();
+    console.log('데이터 제거(Clear) 완료.');
+  };
+
+  return (
+    <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px', border: '2px solid #333', borderRadius: '8px' }}>
+      <h2 style={{ borderBottom: '2px solid #333', paddingBottom: '10px' }}>Zustand 데이터 관리 예제</h2>
+      
+      {/* 데이터 설정 및 제거 버튼 */}
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+        <button 
+          onClick={handleSetData} 
+          disabled={isLoggedIn}
+          style={{ padding: '10px 15px', backgroundColor: isLoggedIn ? '#ccc' : '#28a745', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+        >
+          데이터 저장 (Set)
+        </button>
+        <button 
+          onClick={handleClearData} 
+          disabled={!isLoggedIn}
+          style={{ padding: '10px 15px', backgroundColor: !isLoggedIn ? '#ccc' : '#dc3545', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
+        >
+          데이터 제거 (Clear)
+        </button>
+      </div>
+
+      {/* 데이터 읽기 결과 */}
+      <h3>데이터 읽기 (Read Result)</h3>
+      
+      {userInfo ? (
+        <div style={{ backgroundColor: '#f0fff4', padding: '15px', border: '1px solid #c3e6cb', borderRadius: '5px' }}>
+          <p style={{ color: '#28a745', fontWeight: 'bold' }}>✅ **데이터가 존재합니다 (로그인 상태)**</p>
+          <ul style={{ listStyleType: 'none', padding: '0' }}>
+            <li>**UID:** {userInfo.uidVarchar}</li>
+            <li>**이름:** {userInfo.displayName}</li>
+            <li>**이메일:** {userInfo.emailVarchar}</li>
+            <li>**토큰:** {userInfo.token.substring(0, 15)}...</li>
+          </ul>
+        </div>
+      ) : (
+        <div style={{ backgroundColor: '#fff0f0', padding: '15px', border: '1px solid #f5c6cb', borderRadius: '5px' }}>
+          <p style={{ color: '#dc3545', fontWeight: 'bold' }}>❌ **데이터가 없습니다 (로그아웃 상태)**</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DataExampleComponent;
