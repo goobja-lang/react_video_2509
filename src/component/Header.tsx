@@ -1,9 +1,8 @@
-import { useState } from "react";
 import "./Header.css";
-// useLocation을 import 합니다.
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import { useShallow } from "zustand/shallow";
+import React from "react";
 
 export default function Header() {
   const userInfo = useAuthStore((state) => state?.userInfo);
@@ -14,21 +13,67 @@ export default function Header() {
     }))
   );
   const navigate = useNavigate();
-  // 1. 현재 라우트 정보를 가져옵니다.
   const location = useLocation();
 
-  // 2. 현재 경로가 /imgtest 인지 확인합니다.
   const isImgTestPage = location.pathname === "/imgtest";
 
   return (
     <div>
+      {/* 1. 메인 헤더 (로고 - 메뉴 - 로그인정보 한 줄 배치) */}
       <header>
-        <h1>헤더에요 </h1>
+        {/* 로고 영역 */}
+        <h1 className="logo" onClick={() => navigate("/")}>
+          LOGO
+        </h1>
+
+        {/* 네비게이션 메뉴 영역 */}
+        <nav>
+          <ul className="topnav">
+            <li>
+              <Link
+                to="/"
+                className={location.pathname === "/" ? "active" : ""}
+              >
+                HOME
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/memo_upsert"
+                className={location.pathname === "/memo_upsert" ? "active" : ""}
+              >
+                MEMO
+              </Link>
+            </li>
+            <li>
+              <Link to="/imgtest" className={isImgTestPage ? "active" : ""}>
+                CNN
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/facerecog"
+                className={location.pathname === "/facerecog" ? "active" : ""}
+              >
+                FACE RECOG
+              </Link>
+            </li>
+            <li>
+              <Link to="/calc">CALC</Link>
+            </li>
+            <li>
+              <Link to="/lotto">LOTTO</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* 우측 로그인/유저 정보 영역 */}
         <div className="header-right">
           {userInfo?.id ? (
-            // 로그인 상태일 때
             <>
-              <span className="user-info">{userInfo?.id}님 환영합니다</span>
+              <span className="user-info">
+                {userInfo?.displayName ?? "User"}
+              </span>
               <button
                 className="auth-button"
                 onClick={() => {
@@ -36,80 +81,36 @@ export default function Header() {
                   navigate("/");
                 }}
               >
-                로그아웃
+                Logout
               </button>
             </>
           ) : (
-            // 로그아웃 상태일 때
             <button
               className="auth-button"
               onClick={() => {
                 navigate("/login");
               }}
             >
-              로그인
+              Login
             </button>
           )}
         </div>
       </header>
-      <ul className="topnav">
-        <li>
-          <Link to="/" className={location.pathname === "/" ? "active" : ""}>
-            홈
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/memo_upsert"
-            className={location.pathname === "/memo_upsert" ? "active" : ""}
-          >
-            메모
-          </Link>
-        </li>
-        <li>
-          {/* 현재 페이지가 /imgtest 일 때만 'active' 클래스 추가 */}
-          <Link to="/imgtest" className={isImgTestPage ? "active" : ""}>
-            CNN
-          </Link>
-        </li>
-        <li>
-          {/* 현재 페이지가 /imgtest 일 때만 'active' 클래스 추가 */}
-          <Link
-            to="/facerecog"
-            className={location.pathname === "/facerecog" ? "active" : ""}
-          >
-            얼굴인식
-          </Link>
-        </li>
-        <li>
-          <Link to="/geminirag">Gemini Rag</Link>
-        </li>
-        <li>
-          <Link to="/calc">계산기</Link>
-        </li>
-        <li>
-          <Link to="/lotto">로또</Link>
-        </li>
-      </ul>
 
-      {/* 3. 현재 경로가 /imgtest일 경우에만 서브 메뉴를 렌더링합니다. */}
+      {/* 2. 서브 메뉴 (헤더 바로 아래 위치) */}
       {isImgTestPage && (
         <ul className="subnav">
           <li>
-            {/* 서브 메뉴 링크 (예시: 기본 모델) */}
             <Link to="/imgtest?model=base">기본 모델</Link>
           </li>
           <li>
-            {/* 서브 메뉴 링크 (예시: 파인튜닝 모델) */}
-            <Link to="/imgtest?model=muffin_chihuahua">치와와vs머핀 모델</Link>
+            <Link to="/imgtest?model=muffin_chihuahua">치와와vs머핀</Link>
           </li>
           <li>
-            {/* 서브 메뉴 링크 (예시: 파인튜닝 모델) */}
-            <Link to="/imgtest?model=plantdisease">식물잎사귀 병충해모델</Link>
+            <Link to="/imgtest?model=plantdisease">식물병충해</Link>
           </li>
         </ul>
       )}
-      {/* 서브 메뉴가 Header.tsx 파일의 반환값에 포함되므로, ImgTest.tsx 파일은 수정할 필요가 없습니다. */}
     </div>
   );
 }

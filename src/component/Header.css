@@ -1,120 +1,118 @@
+/* Header.css */
+
+/* 전체 헤더 컨테이너: 로고, 네비게이션, 유저 정보를 가로로 배치 */
 header {
-  background-color: #f1f1f1;
-  padding: 10px;
-  text-align: center;
-  /* header 내에서 자식 요소(.header-right)의 위치 기준이 됩니다. */
+  background-color: #ffffff; /*흰색 배경 */
+  padding: 0 50px; /* 좌우 여백 */
+  height: 80px; /* 헤더 높이 고정 */
+  display: flex; /* 가로 배치 */
+  justify-content: space-between; /* 요소들 사이에 균등 간격 */
+  align-items: center; /* 수직 중앙 정렬 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 살짝 그림자 추가하여 구분감 */
   position: relative;
+  z-index: 1000;
 }
 
-/* Style the right-side container */
-.header-right {
-  /* 헤더 오른쪽 상단에 위치시키기 위해 절대 위치 사용 */
-  position: absolute;
-  right: 10px; /* 오른쪽에서 10px 여백 */
-  top: 50%; /* 상단에서 50% 위치 */
-  /* 요소를 Y축으로 -50% 이동시켜 수직 중앙 정렬 */
-  transform: translateY(-50%);
-  display: flex; /* 내부 요소들을 가로로 배열 */
-  align-items: center;
-  gap: 10px; /* 유저 정보와 버튼 사이 간격 */
-}
-
-/* 유저 정보 텍스트 스타일 */
-.user-info {
-  font-weight: bold;
-  font-size: 16px;
+/* 로고 스타일 (기존 h1 대체) */
+header h1.logo {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  font-weight: 900; /* 굵게 */
   color: #333333;
+  margin: 0;
+  letter-spacing: 2px; /* 자간 넓게 */
+  text-transform: uppercase; /* 대문자 변환 */
+  cursor: pointer;
 }
 
-/* 로그인/로그아웃 버튼 스타일 */
+/* 네비게이션 메뉴 (기존 ul.topnav 대체) */
+nav ul.topnav {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 30px; /* 메뉴 사이 간격 */
+  background-color: transparent; /* 배경 투명하게 */
+}
+
+/* 메뉴 링크 스타일 */
+nav ul.topnav li a {
+  display: block;
+  text-decoration: none;
+  color: #555555; /* 진한 회색 텍스트 */
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase; /* 대문자 변환 */
+  padding: 5px 0;
+  transition: color 0.3s ease;
+  border-bottom: 2px solid transparent; /* 호버 시 밑줄 효과 준비 */
+}
+
+/* 호버 및 활성화 상태 */
+nav ul.topnav li a:hover,
+nav ul.topnav li a.active {
+  color: #6c63ff; /* 이미지의 보라색 포인트 컬러 */
+  background-color: transparent; /* 배경색 변경 없음 */
+  border-bottom: 2px solid #6c63ff; /* 밑줄 포인트 */
+}
+
+/* 헤더 우측 (유저 정보 및 버튼) */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-info {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 로그인/로그아웃 버튼 스타일 (이미지의 보라색 버튼 느낌) */
 .auth-button {
-  background-color: #555555;
+  background-color: #6c63ff; /* 보라색 배경 */
   color: white;
   border: none;
-  padding: 8px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  padding: 8px 20px;
   font-size: 14px;
-  margin: 4px 2px;
+  font-weight: bold;
+  border-radius: 20px; /* 둥근 버튼 */
   cursor: pointer;
-  border-radius: 4px;
-  transition-duration: 0.4s;
+  transition: background-color 0.3s;
 }
 
 .auth-button:hover {
-  background-color: #333333;
-}
-
-/* Style the topnav */
-ul.topnav {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  background-color: #333333;
-  /* 자식 요소(li)들이 가운데로 정렬 */
-  justify-content: center;
-}
-
-/* Style links in topnav */
-ul.topnav li a {
-  display: block;
-  color: #f1f1f1;
-  padding: 14px 16px;
-  text-decoration: none;
-  align-content: center;
-}
-
-/* Change color on hover */
-ul.topnav li a:hover {
-  background-color: #dddddd;
-  color: black;
-}
-
-/* topnav의 현재 활성화된 페이지 스타일 */
-ul.topnav li a.active {
-  background-color: transparent; /* 이미지에서 'CNN' 탭이 노란색인 것을 반영 */
-  color: #f1f1f1;
-  border-bottom: 4px solid #ffffff;
+  background-color: #5a52d5; /* 호버 시 약간 진하게 */
 }
 
 /* ---------------------------------- */
-/* 서브 메뉴 스타일 */
+/* 서브 메뉴 스타일 (이미지에는 없지만 기능 유지를 위해 깔끔하게 정리) */
 /* ---------------------------------- */
 ul.subnav {
   display: flex;
-  margin: 0;
-  padding: 0;
-  /* 서브 메뉴는 탑 메뉴보다 살짝 밝은 배경색을 사용했습니다. */
-  background-color: #444444;
-  /* 자식 요소(li)들이 가운데로 정렬 */
   justify-content: center;
-  border-bottom: 5px solid #333333; /* 아래쪽에 작은 경계선 추가 */
+  gap: 20px;
+  background-color: #f9f9f9; /* 연한 회색 */
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  margin: 0;
+  list-style: none;
 }
 
-/* 서브 메뉴 링크 스타일 */
 ul.subnav li a {
-  display: block;
-  color: #f1f1f1;
-  padding: 14px 20px;
   text-decoration: none;
-  font-size: 18px;
-  /* ❌ 활성화되지 않은 탭에 경계선 제거 */
-  border: 5px solid transparent;
-  border-bottom: none;
-  font-weight: bold;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.2s;
 }
 
-/* 서브 메뉴 링크 호버 스타일 */
-ul.subnav li a:hover {
-  background-color: #555555;
-  color: white;
-}
-
-/* 서브 메뉴의 현재 활성화된 탭 스타일 */
+ul.subnav li a:hover,
 ul.subnav li a.subnav-active {
-  background-color: #555555; /* 짙은 회색 배경으로 변경 */
-  color: white; /* 흰색 텍스트 */
-  border: none;
-  border-bottom: 3px solid #fce83a;
+  background-color: #e0e0ff; /* 아주 연한 보라색 배경 */
+  color: #6c63ff;
+  font-weight: bold;
 }

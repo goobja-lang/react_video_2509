@@ -32,9 +32,6 @@ export default function VideoUpload() {
   }
 
   useEffect(() => {
-    /* 로그인 되어있나 체크하기
-    로그인 안되있으면, alert 띄우고 로그인 페이지로 보내기
-     */
     validation();
   }, []);
 

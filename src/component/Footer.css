@@ -1,5 +1,10 @@
+/* Footer.css */
 footer {
-  background-color: #f1f1f1;
-  padding: 10px;
+  background-color: #ffffff;
+  padding: 20px;
   text-align: center;
+  border-top: 1px solid #eaeaea; /* 상단에 얇은 경계선 */
+  color: #888888;
+  font-size: 12px;
+  margin-top: auto; /* 내용이 적어도 바닥에 붙도록 처리 (부모 flex 설정 필요) */
 }
