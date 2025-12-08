@@ -37,32 +37,16 @@ export default function Header() {
                 HOME
               </Link>
             </li>
+
             <li>
               <Link
-                to="/memo_upsert"
-                className={location.pathname === "/memo_upsert" ? "active" : ""}
+                to="/video_upload"
+                className={
+                  location.pathname === "/video_uplaod" ? "active" : ""
+                }
               >
-                MEMO
+                VIDEO UPLOAD
               </Link>
-            </li>
-            <li>
-              <Link to="/imgtest" className={isImgTestPage ? "active" : ""}>
-                CNN
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/facerecog"
-                className={location.pathname === "/facerecog" ? "active" : ""}
-              >
-                FACE RECOG
-              </Link>
-            </li>
-            <li>
-              <Link to="/calc">CALC</Link>
-            </li>
-            <li>
-              <Link to="/lotto">LOTTO</Link>
             </li>
           </ul>
         </nav>
