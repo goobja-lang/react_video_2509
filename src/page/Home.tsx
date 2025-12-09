@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 // 1. ✨ 새로 만든 썸네일 컴포넌트를 import 합니다.
 import VideoThumbnail from "../component/VideoThumbnail";
+import { Link, useNavigate } from "react-router-dom";
 
 interface videoListType {
   createdAt?: string;
@@ -13,6 +14,7 @@ interface videoListType {
 export default function Home() {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [videos, setVideos] = useState<videoListType[]>([]);
+  const navigate = useNavigate();
 
   async function getVideoList() {
     try {
@@ -35,7 +37,7 @@ export default function Home() {
 
   return (
     <div className="content-margin-padding">
-      <h1>VIDEO LIST</h1>
+      <h1>비디오 리스트</h1>
       <div>
         {videos?.length &&
           videos.map((item) => {
@@ -46,6 +48,9 @@ export default function Home() {
                   display: "flex",
                   alignItems: "center",
                   marginBottom: "10px",
+                }}
+                onClick={() => {
+                  navigate(`/video_detail?videoId=${item?.id}`);
                 }}
               >
                 {/* 2. ✨ VideoThumbnail 컴포넌트를 추가하고 mp4Url을 전달합니다. */}
